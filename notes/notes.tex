@@ -1,0 +1,58 @@
+\documentclass[10pt]{article}
+%\usepackage{geometry}[margin=1in]
+\usepackage{../../notes}
+\usepackage{hyperref}
+
+\title{\bf Energy Based Models}
+\author{Anton Sugolov}
+
+
+\begin{document}
+
+\maketitle
+\tableofcontents
+%\newpage
+
+\vspace{20pt}
+
+This writeup is intended to present previous EBM approaches and to document the ones that I implement in JAX: 
+\begin{center}
+	\href{https://github.com/sugolov/jax-ebm}{https://github.com/sugolov/jax-ebm}
+\end{center}
+It would be great to add other methods of statistical inference based on information-geometric approaches.
+
+\section{What is an EBM?}
+In systems studied in statistical physics (e.g. Ising model), certain state configurations $x$ have low energy $\mathcal{E}(x)$, which corresponds to state $x$ having a high probability $p(x)$ of occuring. The correspondence between a state energy and its probability is
+$$
+	\mathcal{E}(x) \iff p(x) = \f1{\mathcal{Z}} \exp(-\mathcal{E}(x))
+$$
+where $\mathcal{Z} = \int \exp(-\mathcal{E}(x)) \, dx$ is chosen to make $p$ a probability measure. 
+\begin{example}
+	The energy $\mathcal{E}(x) = x^2$ gives the Gaussian $p(x) = \mathcal{N}(x \mid 0,1)$.
+\end{example}
+Generally, any variational approach that fits $\mathcal{E}_\theta(x)$ is an {\bf energy-based model}. If we were doing some variational inference over $p_\theta(x)$, we would have to ensure that $p_\theta$ is a valid density, which is hard to enforce with something like a neural network. In some cases, we are not as restricted when fitting $\mathcal{E}_\theta(x)$, however $\mathcal{Z}_\theta$ is intractable and should be avoided. Notice that
+$$
+	\nabla (- \log p_\theta)(x) = \nabla \mathcal{E}_\theta(x)
+$$
+does not depend on $\mathcal{Z}_\theta$. EBMs are useful when we want to sample from $p_\theta$ with Langevin Monte Carlo. We can sample using the above score function with LMC:
+$$
+	x_{t+1} = \nabla \mathcal{E}_\theta(x) + \sigma_t z_t,\quad z_t \sim N(0,1)
+$$
+for timesteps $t$ and noise schedule $\sigma_t$.
+
+\subsection{Score matching}
+Let $\{x^{i}\}$ be observations from the target density. {\bf Score matching} aims to fit an EBM $\mathcal{E}_\theta(x)$ so that $\nabla \mathcal{E}_\theta(x)$ matches the score of the empirical $p_D(x) = \sum_i \delta_{x^{(i)}}$.
+\begin{defn}
+	The {\bf Fisher divergence} between two densities $p,q$ is
+	$$
+	D_F(p || q)
+	= \Ex \, \left[\f12 (\nabla \log q(x) - \nabla \log p(x))^2\right]
+	$$
+\end{defn}
+Score matching is done by minimizing $D_F$ over $\theta$ such that $\mathcal{E}_\theta(x)$ matches $\nabla \log p_D$. The issue is that $p_D$ is a sum of delta functions, and is difficult to approximate. Several approaches exist to overcome this issue; most add noise to $p_D$ and show that the problem can be minimized in expectation. 
+
+\subsubsection{Sliced Score Matching}
+
+\subsubsection{Denoising Score Matching}
+
+\end{document}
