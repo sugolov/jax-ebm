@@ -1,0 +1,202 @@
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{bbm}
+\usepackage{esint}
+\usepackage{blindtext}
+\usepackage[backend=bibtex]{biblatex}
+\addbibresource{bib.bib}
+\usepackage{titlesec}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{amsthm}
+\usepackage{graphicx}
+\usepackage{cool}
+\usepackage{thmtools}
+\usepackage{hyperref}
+\usepackage{tikz}
+\graphicspath{ }						%path to an image
+
+
+\usepackage[skins,xparse,breakable]{tcolorbox}
+\usepackage{mdframed}
+
+%-------- sexy font ------------%
+%\usepackage{libertine}
+%\usepackage{libertinust1math}
+
+%\usepackage{mlmodern}				% very nice and classic
+%\usepackage[utopia]{mathdesign}
+%\usepackage[T1]{fontenc}
+
+
+%\usepackage{mlmodern}
+%\usepackage{tgtermes} 				%times new roman
+%\usepackage{eulervm}
+
+\usepackage{sansmathfonts}
+\usepackage[T1]{fontenc}
+%\usepackage{eulervm}
+\renewcommand*\familydefault{\sfdefault} 
+%-------- sexy font ------------%
+
+
+
+% Problem Styles
+%====================================================================%
+
+
+\newtheorem{problem}{Problem}
+
+
+\theoremstyle{definition}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newtheorem{proposition}{Proposition}
+\newtheorem{fact}{Fact}
+\newtheorem{definition}{Definition}
+\newtheorem{example}{Example}
+
+\newtheorem{manualprobleminner}{Problem}
+
+\newenvironment{manualproblem}[1]{%
+	\renewcommand\themanualprobleminner{#1}%
+	\manualprobleminner
+}{\endmanualprobleminner}
+
+\newenvironment{subproblem}
+	{\begin{enumerate}[label=\bf \alph*., leftmargin=0pt]}
+	{\end{enumerate}}
+
+%\newtcolorbox{greybox}{enhanced, width=1\linewidth, sharpish corners, colback=white!95!black, breakable, boxrule=0.3pt}
+
+\newtcolorbox{greybox}[1][]{
+	colframe=white,    % Border color
+	colback=white!90!black,    % Background color
+	left=4pt,         % No left padding
+	right=4pt,        % No right padding
+	top=4pt,          % No top padding
+	bottom=4pt,       % No bottom padding
+	boxrule=1pt,      % Thickness of the box border
+	arc=0mm,          % No rounded corners
+	outer arc=0mm,
+	boxsep=0pt,       % Space between the content and the box border
+	fonttitle=\bfseries
+}
+
+\newtcolorbox{whitebox}{enhanced, width=\linewidth, sharp corners=all, colback=white!100!black, breakable, boxrule=0.3pt}
+
+
+\newenvironment{ex}
+	{\begin{greybox}\begin{example}}
+	{\end{example}\end{greybox}}
+
+\newenvironment{thm}
+	{\begin{greybox}\begin{theorem}}
+	{\end{theorem}\end{greybox}}
+
+\newenvironment{defn}
+	{\begin{greybox}\begin{definition}}
+	{\end{definition}\end{greybox}}
+
+\newenvironment{prop}
+	{\begin{greybox}\begin{proposition}}
+	{\end{proposition}\end{greybox}}
+
+% Math fonts shortcuts
+%====================================================================%
+
+\newcommand{\N}{\mathbb{N}}                           % Natural numbers
+\newcommand{\Z}{\mathbb{Z}}                           % Integers
+\newcommand{\R}{\mathbb{R}}                           % Real numbers
+\newcommand{\C}{\mathbb{C}}                           % Complex numbers
+\newcommand{\F}{\mathbb{F}}                           % Arbitrary field
+\newcommand{\Q}{\mathbb{Q}}                           % Arbitrary field
+\newcommand{\A}{\mathcal{A}}							% algebra
+\newcommand{\PP}{\mathcal{P}}                         % Partition
+\newcommand{\M}{\mathcal{M}}                         % Mathcal M
+\newcommand{\eL}{\mathcal{L}}                         % Mathcal L
+\newcommand{\T}{\mathcal{T}}                         % Mathcal T
+\newcommand{\U}{\mathcal{U}}                         % Mathcal U\\
+\newcommand{\V}{\mathcal{V}}                         % Mathcal V
+
+\newcommand{\Ex}{\mathbb{E}}                         % expectation
+\newcommand{\ind}{\mathbbm{1}}                         % expectation
+\newcommand{\PR}{\mathbb{P}}                         % expectation
+
+% symbol shortcuts
+%====================================================================%
+
+\newcommand{\lam}{\lambda}
+\newcommand{\imp}{\implies}
+\newcommand{\all}{\forall}
+\newcommand{\exs}{\exists}
+\newcommand{\delt}{\delta}
+\newcommand{\eps}{\varepsilon}
+\newcommand{\ra}{\rightarrow}
+
+\newcommand{\ol}{\overline}
+\newcommand{\f}{\frac}
+\newcommand{\lf}{\lfrac}
+\newcommand{\df}{\dfrac}
+
+% bracket shortcuts
+%====================================================================%
+\newcommand{\abs}[1]{\left| #1 \right|}
+\newcommand{\babs}[1]{\Big|#1\Big|}
+\newcommand{\bound}{\Big|}
+\newcommand{\BB}[1]{\left(#1\right)}
+\newcommand{\dd}{\mathrm{d}}
+\newcommand{\artanh}{\mathrm{artanh}}
+\newcommand{\Med}{\mathrm{Med}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Corr}{\mathrm{Corr}}
+
+% lin alg shortcuts
+%====================================================================%
+\newcommand{\tr}{\text{tr}}
+\newcommand{\smooth}{$C^\infty$}
+\newcommand{\Range}[1]{\mathrm{range}(#1)}
+\newcommand{\Null}[1]{\mathrm{null}(#1)}
+\newcommand{\lan}{\langle}
+\newcommand{\ran}{\rangle}
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
+\newcommand{\inn}[1]{\lan#1\ran}
+\newcommand{\op}[1]{\operatorname{#1}}
+\newcommand{\bmat}[1]{\begin{bmatrix}#1\end{bmatrix}}
+\newcommand{\pmat}[1]{\begin{pmatrix}#1\end{pmatrix}}
+\newcommand{\vmat}[1]{\begin{vmatrix}#1\end{vmatrix}}
+
+\newcommand{\amogus}{{\bigcap}\kern-0.8em\raisebox{0.3ex}{$\subset$}}
+
+% Probability shortcuts
+%====================================================================%
+
+
+% indentations and formatting
+%====================================================================%
+
+\setlength{\parindent}{0pt}      	% No paragraph indentations
+%\setlength{\parskip}{0.5\baselineskip}
+%\pagestyle{fancy}
+%\fancyhf{}							% fancy header
+
+
+\setcounter{secnumdepth}{2}			% sections are numbered but numbers do not appear
+\setcounter{tocdepth}{2} 			% no subsubsections in toc
+%\bibstyle{ksfh_nat}
+
+% add period after section name
+\usepackage{titlesec}
+
+% \titleformat{\section}[runin]
+% {\normalfont\Large\bfseries}
+% {\thesection.}
+% {1em}
+% {}
+
+% \titleformat{\subsection}[runin]
+% {\normalfont\large\bfseries}
+% {\thesubsection.}
+% {1em}
+% {}
+
